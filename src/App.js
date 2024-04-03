@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./quill.css"; // import styles
+
+import toast, { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Main from "./Main";
+import { PostProvider } from "./context/PostContext";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // Prevents queries from refetching on window focus
+    },
+    onError: (error, query) => {
+      if (query.meta.errorMessage) {
+        toast.error(query.meta.errorMessage);
+      }
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PostProvider>
+      <QueryClientProvider client={queryClient}>
+        <Toaster />
+        <Main />
+      </QueryClientProvider>{" "}
+    </PostProvider>
   );
 }
 

@@ -1,13 +1,85 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button-outline-gradient {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition: color 0.4s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.button-outline-gradient::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  z-index: -1;
+
+  border-radius: inherit;
+}
+
+.button-glow {
+  box-shadow: 0 0 5px rgba(56, 189, 248, 0.6), 0 0 5px rgba(139, 92, 246, 0.6);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ql-editor {
+  min-height: 400px; /* Set your desired height here */
+  max-height: 600px; /* Optional: set a maximum height */
+  overflow-y: auto; /* Optional: add scroll for overflow */
+}
+
+/* Assume all images with IDs starting with 'uploading-' are being uploaded */
+img[id^='uploading-'] {
+  position: relative;
+  opacity: 0.3;
+}
+
+
+img[id^='uploading-'] {
+  position: relative;
+  opacity: 0.5;
+}
+
+img[id^='uploading-']::after {
+  content: "xxx";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spinner 1s linear infinite;
+  z-index: 10; /* Ensure spinner is visible */
+}
+
+@keyframes spinner {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
