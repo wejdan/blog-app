@@ -58,6 +58,11 @@ const Navbar = () => {
   // Show the edit button if the user is an admin and the current page is either the post details or the edit page.
   const showEditButton =
     isAdmin && (isPostPage || isEditPage) && post && post.author === user;
+
+  // Do not display the Navbar on the chat page
+  if (location.pathname === "/chat") {
+    return null;
+  }
   return (
     <nav className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex items-center justify-between">

@@ -14,6 +14,7 @@ const LoginPage = () => {
     e.preventDefault();
     // Handle login logic
     console.log({ email, password });
+
     login({ email, password });
   };
   const handleGoogleSignIn = (e) => {
@@ -87,7 +88,7 @@ const LoginPage = () => {
             >
               Forgot password?
             </NavLink>
-            <NavLink to="/singup" className="text-blue-500 hover:text-blue-700">
+            <NavLink to="/signup" className="text-blue-500 hover:text-blue-700">
               Sign Up
             </NavLink>
           </div>

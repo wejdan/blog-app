@@ -20,13 +20,15 @@ export const deleteSelectedImages = async (token, imageNames) => {
     body: JSON.stringify({ imageNames }),
   });
 };
-export const getSignedURL = (token, { type, isTemporary }) => {
+export const getSignedURL = (token, { type, isTemporary, fileName }) => {
   // Construct the query string
   let queryString = `type=${type}`;
   if (isTemporary) {
     queryString += `&isTemporary=true`;
   }
-
+  if (fileName) {
+    queryString += `&fileName=${fileName}`;
+  }
   return customFetch(`${API_URL}/generate-signed-url/?${queryString}`, {
     method: "GET",
     headers: {

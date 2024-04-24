@@ -5,7 +5,13 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ["responsive", "hover", "focus", "group-hover"],
+      translate: ["responsive", "hover", "focus", "group-hover"],
+      scale: ["responsive", "hover", "focus", "group-hover"],
+      transform: ["responsive", "hover", "focus", "group-hover"],
+      transitionProperty: ["responsive", "hover", "focus"],
+    },
   },
   plugins: [],
 };

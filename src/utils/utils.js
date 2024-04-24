@@ -24,6 +24,7 @@ export async function customFetch(url, options = {}) {
         ...defaultHeaders,
         ...options.headers,
       },
+      credentials: "include", // Add this line
     });
 
     if (!response.ok) {

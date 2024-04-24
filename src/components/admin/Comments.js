@@ -75,7 +75,6 @@ function Comments() {
 
   const comments = commentsList?.comments || [];
   // ...rest of your component
-  console.log("-----------------", comments);
   return (
     <div className="w-full flex flex-col pt-12 ">
       {isLoading ? (

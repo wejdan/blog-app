@@ -20,7 +20,7 @@ export function useAuth() {
   // Rehydrate auth state from localStorage
   // Sign up mutation
   const {
-    mutateAsync: signupMutate,
+    mutate: signupMutate,
     isPending: isSignupLoading,
     isError: isSignupError,
     error: signupError,
@@ -49,7 +49,7 @@ export function useAuth() {
 
   // Login mutation
   const {
-    mutateAsync: loginMutate,
+    mutate: loginMutate,
     isPending: isLoginLoading,
     isError: isLoginError,
     error: loginError,
@@ -67,6 +67,7 @@ export function useAuth() {
       dispatch(fetchUserData(data.accessToken));
     },
     onError: (error) => {
+      console.log("onErr", error);
       // Handle the error
       toast.dismiss(); // Dismiss any existing toast first
 

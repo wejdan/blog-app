@@ -10,6 +10,9 @@ export const deleteUser = (token, userId) => {
     },
   });
 };
+export const searchUsers = (inputValue) => {
+  return customFetch(`${API_URL}/search?query=${inputValue}`);
+};
 export const getAllUsers = (token) => {
   return customFetch(`${API_URL}/`, {
     method: "GET",

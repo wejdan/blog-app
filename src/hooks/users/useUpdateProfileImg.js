@@ -10,7 +10,7 @@ import { useAuthQuery } from "../common/useAuthQuery";
 import { setUserData } from "../../store/authSlice";
 import { useState } from "react";
 
-export function useUpdateProfileImg(onSuccess, onMutationStart, onMutationEnd) {
+export function useUpdateProfileImg() {
   const getSignedUrlMutation = useAuthMutation(getSignedURL);
   const updateProfilePictureMutation = useAuthMutation(updateProfilePicture);
   const dispatch = useDispatch();

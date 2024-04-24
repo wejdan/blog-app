@@ -5,11 +5,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import HomePage from "../src/pages/HomePage";
 import MovieDetails from "../pages/MovieDetails";
 import MovieReview from "../pages/MovieReview";
 import MoviesCategory from "../pages/MoviesCategory";
-import NotFoundPage from "../pages/NotFoundPage";
+import NotFoundPage from "../src/pages/NotFoundPage";
 
 const UserRouter = () => {
   return (

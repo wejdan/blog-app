@@ -99,6 +99,8 @@ function Open({ children }) {
   const { setIsOpen, setPosition } = useContext(MenuContext);
 
   const handleClick = (e) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+
     // Capture click position
     const buttonRect = e.currentTarget.getBoundingClientRect();
 

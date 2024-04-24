@@ -53,8 +53,6 @@ export const useAuthMutation = (mutationFn, config) => {
         });
         dispatch(logoutAction());
         navigate("/login");
-      } else if (config.onError) {
-        config.onError(error);
       }
     },
   });

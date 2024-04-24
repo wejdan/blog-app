@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -39,7 +39,8 @@ import UpdatePasswordPage from "./pages/UpdatePasswordPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import AllPostsPage from "./pages/AllPostsPage";
-import ChatPage from "./pages/ChatPage";
+import ChatPage from "./pages/ChatPage2";
+import { SocketProvider } from "./context/SocketContext"; // Adjust the import path as necessary
 
 function ScrollToTopWrapper({ children }) {
   useScrollToTop(); // Call the custom hook inside a child component of Router
@@ -49,6 +50,14 @@ function ScrollToTopWrapper({ children }) {
 function Main() {
   const { isAuthenticating, userData, user, accessToken } = useSelector(
     (state) => state.auth
+  );
+
+  const options = useMemo(
+    () => ({
+      withCredentials: true,
+      auth: { token: accessToken },
+    }),
+    [accessToken]
   );
   const dispatch = useDispatch(); // Use useHistory hook to get access to history object
   useEffect(() => {
@@ -76,6 +85,23 @@ function Main() {
           <Navbar />
           <Routes>
             <Route index element={<HomePage />} />
+            <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  {accessToken ? (
+                    <SocketProvider
+                      serverUrl={"http://localhost:5000"}
+                      options={{ auth: { token: accessToken } }}
+                    >
+                      <ChatPage />
+                    </SocketProvider>
+                  ) : (
+                    <Loader /> // Show a loader or some placeholder if accessToken is not yet available
+                  )}
+                </ProtectedRoute>
+              }
+            />
 
             <Route element={<PageLayout />}>
               <Route
@@ -83,7 +109,6 @@ function Main() {
                 element={<PostsByCategory />}
               />
               <Route path="/posts" element={<AllPostsPage />} />
-              <Route path="/chat" element={<ChatPage />} />
 
               <Route path="/search" element={<SearchPage />} />
               <Route path="/auth" element={<ReadUserData />} />

@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import appSettingsSlice from "./appSettingsSlice";
+import chatReducer from "./chatSlice";
+import { socketMiddleware } from "./middleware/socketMiddleware";
 function safeParse(item) {
   const itemRaw = localStorage.getItem(item);
   if (!itemRaw) {
@@ -19,10 +21,7 @@ function safeParse(item) {
 const preloadedState = {
   auth: (() => {
     const storedAuth = safeParse("auth");
-    console.log(
-      "--------------------------------********************",
-      storedAuth
-    );
+    console.log(storedAuth);
     if (storedAuth) {
       return {
         user: storedAuth.uid, // Fallback to the initial state of the auth slice
@@ -35,6 +34,7 @@ const preloadedState = {
   })(),
   appSettings: safeParse("appSettings"),
 };
+
 const appSettingsMiddleware = (store) => (next) => (action) => {
   // Example action types, adjust based on your actual appSettingsSlice action types
   if (action.type.startsWith("appSettings/")) {
@@ -72,6 +72,7 @@ const store = configureStore({
   reducer: {
     auth: authSlice,
     appSettings: appSettingsSlice,
+    chat: chatReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -81,4 +82,5 @@ const store = configureStore({
     }).concat(authMiddleware, appSettingsMiddleware),
   preloadedState, // Correctly placed inside the configuration object
 });
+//store.dispatch({ type: "INIT_APP" });
 export default store;
